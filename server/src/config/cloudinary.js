@@ -1,7 +1,7 @@
 const fs = require("fs");
-const cloudnary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 
-cloudnary.config({
+cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
@@ -10,12 +10,12 @@ cloudnary.config({
   
 });
 
-const uploadImgToCloudnary = async (localFilePath) => {
+const uploadImgToCloudinary = async (localFilePath) => {
   if (!localFilePath) {
     return null;
   }
   try {
-    const response = await cloudnary.uploader.upload(localFilePath, {
+    const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "image",
     });
 
@@ -30,5 +30,5 @@ const uploadImgToCloudnary = async (localFilePath) => {
 
 
 module.exports = {
-  uploadImgToCloudnary,
+  uploadImgToCloudinary,
 };
