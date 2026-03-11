@@ -6,7 +6,7 @@ const deviceSchema = new Schema({
         type: String,
         required: true,
     },
-    user: {
+    usedBy: {
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
@@ -20,8 +20,12 @@ const deviceSchema = new Schema({
         type: Date,
     },
     lastLocation: {
-        latitude: Number,
-        longtitude: Number,
+        latitude: {
+            type: Number,
+        },
+        longtitude: {
+            type: Number
+        }
     }    
 }, { timestamps: true});
 
