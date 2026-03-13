@@ -23,7 +23,7 @@ const deviceSchema = new Schema({
         latitude: {
             type: Number,
         },
-        longtitude: {
+        longitude: {
             type: Number
         }
     }    
