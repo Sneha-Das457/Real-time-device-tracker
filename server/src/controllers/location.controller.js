@@ -20,9 +20,13 @@ const createLocation = asyncHandler(async (requ, res) =>{
     const location = await Location.create({
         device: deviceId,
         coordinates: [longitude, latitude],
-        location: "Point",
+        location: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+        }
 
     });
+
 
     return res.status(201).json(new apiResponse(200, location, "Location created successfully"));
 
@@ -36,9 +40,6 @@ const getDeviceLocation = asyncHandler(async (req, res) =>{
 
     const location = await Location.findOne({
         device: deviceId,
-        createdAt: {
-            $lte: new Date(timestamp)
-        }
     }).sort({ createdAt: -1 });
 
     if(!location){
@@ -61,7 +62,9 @@ const getLocationHistory = asyncHandler(async (req, res) =>{
             $lte: new Date(endDate),
 
         }
-    });
+    })
+    .sort({ createdAt: -1})
+    .limit(1000);
     return res.status(200).json(new apiResponse(200, locations, "Device location history fetched successfully"));
 });
 
@@ -77,10 +80,10 @@ const getNearbyDevices = asyncHandler(async (req, res) =>{
             $geoNear: {
                 near: {
                     type: "Point",
-                    coordinates: [longitude, latitude],
+                    coordinates: [Number(longitude), Number(latitude)],
                 },
                 distanceField: "distance",
-                maxDistance: radius,
+                maxDistance: Number(radius),
                 spherical: true,
             }
        }
