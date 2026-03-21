@@ -9,7 +9,7 @@ const locationShareSchema = new Schema(
       required: true,
     },
 
-    owner: {
+    sharedBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -29,8 +29,8 @@ const locationShareSchema = new Schema(
 
     permission: {
       type: String,
-      enum: ["location"],
-      default: "location",
+      enum: ["view", "share"],
+      default: "view",
     },
 
     expiresAt: {
@@ -45,6 +45,8 @@ const locationShareSchema = new Schema(
   },
   { timestamps: true },
 );
+
+locationShareSchema.index({ device: 1, sharedWith: 1 });
 
 const locationShare = mongoose.model("locationShare", locationShareSchema);
 module.exports = locationShare;
