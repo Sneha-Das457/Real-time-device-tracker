@@ -1,4 +1,4 @@
-/*const asyncHandler = require("../utils/asyncHandler.js");
+const asyncHandler = require("../utils/asyncHandler.js");
 const Device = require("../models/device.model.js");
 
 const socketDeviceValidation= async(socket, next) =>{
@@ -12,7 +12,16 @@ const socketDeviceValidation= async(socket, next) =>{
 
         const device = await Device.findOne({ apiKey });
 
-        if(!device|| !device.isActive)
+        if(!device){
+            return next(new Error("Unauthorized device"));
+        }
+
+        socket.device = device;
+        next();
+    }catch(error){
+        next(new Error("Authentication failed"))
     }
 
-}*/
+};
+
+module.exports = socketDeviceValidation;
