@@ -11,6 +11,11 @@ const deviceSchema = new Schema({
         ref: "User",
         required: true,
     },
+    apiKey: {
+        type: String,
+        uniqe: true,
+        required: true
+    },
     status: {
         type: String,
         enum: ["onlinr", "offline"],
@@ -28,6 +33,13 @@ const deviceSchema = new Schema({
         }
     }    
 }, { timestamps: true});
+
+deviceSchema.pre("save", function(next) {
+    if (!this.apiKey){
+        this.apiKey = crypto.randomBytes(32).toString("hex");
+    }
+    next();
+});
 
 const Device = mongoose.model("Device", deviceSchema);
 module.exports = Device;
