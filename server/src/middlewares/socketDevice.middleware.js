@@ -15,7 +15,7 @@ const socketDeviceValidation= async(socket, next) =>{
         if(!device){
             return next(new Error("Unauthorized device"));
         }
-
+        socket.user = decodeUser; 
         socket.device = device;
         next();
     }catch(error){
