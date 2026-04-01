@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <h2>📍Live Tracker</h2>
+      <span class="status">🟢 Connected</span>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="sidebar">
+      <h3>Online Users</h3>
+      <ul id="userList"></ul>
+    </div>
+
+    <button id="centerBtn">🎯 Center Map</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
